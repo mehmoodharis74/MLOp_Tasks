@@ -1,33 +1,41 @@
 pipeline {
-    agent any
+    agent {
+        label 'ubuntu-latest'
+    }
 
     stages {
-        stage('Clone Repo') {
+        stage('Checkout Repository') {
             steps {
-                echo "Cloning Repo"
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mehmoodharis74/MLOp_Tasks-2.git']])
+                echo 'Checking out the repository'
+                checkout scm
             }
         }
+
+        stage('Set up Python') {
+            steps {
+                echo 'Setting up Python'
+                script {
+                    // Replace '3.12.0' with the desired Python version
+                    tool 'Python 3.12.0'
+                }
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Dependencies'
-                bat "make install"
+                script {
+                    sh 'python -m pip install --upgrade pip'
+                    sh 'pip install -r requirements.txt'
+                }
             }
         }
-        stage('Testing') {
+
+        stage('Run Tests') {
             steps {
                 echo 'Running Tests'
-                bat "make tests"
-            }
-        }
-        stage('Branch Name Check') {
-            steps {
-                echo 'Checking branch name'
                 script {
-                    def branchName = env.BRANCH_NAME
-                    if (branchName == 'main') {
-                        echo "Branch Name: ${branchName}"
-                    }
+                    sh 'pytest test.py'
                 }
             }
         }
