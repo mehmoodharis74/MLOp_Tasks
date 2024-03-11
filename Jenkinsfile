@@ -23,7 +23,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Dependencies'
-                sh 'python --version'
+                sh 'python install -r requirements.txt'
             }
         }
         stage('Testing') {
