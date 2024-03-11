@@ -11,13 +11,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Dependencies'
-                bat 'pip3 install -r requirements.txt'
+                sh 'pip3 install -r requirements.txt'
             }
         }
         stage('Testing') {
             steps {
                 echo 'Running Tests'
-                bat 'python -m pytest test.py'
+                sh 'python -m pytest test.py'
             }
         }
         stage('Branch Name Check') {
