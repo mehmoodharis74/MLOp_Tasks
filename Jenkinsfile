@@ -11,20 +11,20 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Dependencies'
-                    sh 'python3 -m install -r requirements.txt'
+                bat 'python3 -m pip install -r requirements.txt'
             }
         }
         stage('Testing') {
             steps {
                 echo 'Running Tests'
-                 sh 'python3 -m pytest test.py'
+                bat 'python3 -m pytest test.py'
             }
         }
         stage('Branch Name Check') {
             steps {
                 echo 'Checking branch name'
                 script {
-                    def branchName = "${env.GIT_BRANCH}"
+                    def branchName = "${env.BRANCH_NAME}"
                     if (branchName == 'main')  {
                         echo "Branch Name: ${branchName}"
                     }
