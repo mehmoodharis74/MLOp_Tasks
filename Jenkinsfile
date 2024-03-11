@@ -11,19 +11,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Dependencies'
-                script {
-                    // Use pip3 on Unix-like systems and pip on Windows
-                    def pipCommand = isUnix() ? 'pip3' : 'pip'
-                    sh "${pipCommand} install -r requirements.txt"
-                }
+                sh 'pip3 install -r requirements.txt'
             }
         }
         stage('Testing') {
             steps {
                 echo 'Running Tests'
-                // Use python3 on Unix-like systems and python on Windows
-                def pythonCommand = isUnix() ? 'python3' : 'python'
-                sh "${pythonCommand} -m pytest test.py"
+                sh 'python -m pytest test.py'
             }
         }
         stage('Branch Name Check') {
