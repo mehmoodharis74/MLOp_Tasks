@@ -2,19 +2,33 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Clone Repo') {
             steps {
-                echo 'Hello World'
+                echo "Cloning Repo"
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mehmoodharis74/MLOp_Tasks-2.git']])
             }
         }
-        stage('CHalo') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Hello Chalo'
+                echo 'Installing Dependencies'
+                sh "make install"
             }
         }
-        stage('Niklo') {
+        stage('Testing') {
             steps {
-                echo 'Hello Niklo'
+                echo 'Running Tests'
+                sh "make tests"
+            }
+        }
+        stage('Branch Name Check') {
+            steps {
+                echo 'Checking branch name'
+                script {
+                    def branchName = env.BRANCH_NAME
+                    if (branchName == 'main') {
+                        echo "Branch Name: ${branchName}"
+                    }
+                }
             }
         }
     }
