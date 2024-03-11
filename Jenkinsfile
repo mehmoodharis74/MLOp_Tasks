@@ -26,7 +26,7 @@ pipeline {
                 echo 'Checking branch name'
                 script {
                     def branchName = env.BRANCH_NAME
-                    if (branchName == 'main') {
+                    if (branchName == 'main')  {
                         echo "Branch Name: ${branchName}"
                     }
                 }
