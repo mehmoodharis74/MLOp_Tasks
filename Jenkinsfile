@@ -15,6 +15,7 @@ pipeline {
                     def branchName = "${env.BRANCH_NAME}"
                     if (branchName == 'main')  {
                         echo "Branch Name: ${branchName}"
+                        
                     }
                 }
             }
