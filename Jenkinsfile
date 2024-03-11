@@ -26,7 +26,7 @@ pipeline {
                 echo 'Installing Dependencies'
                 script {
                     sh 'python -m pip install --upgrade pip'
-                    sh 'pip install -r requirements.txt'
+                    sh 'python install -r requirements.txt'
                 }
             }
         }
