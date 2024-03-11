@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
+                
                 echo "Cloning Repo"
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mehmoodharis74/MLOp_Tasks-2.git']])
             }
