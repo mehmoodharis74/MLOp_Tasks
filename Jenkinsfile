@@ -11,13 +11,13 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Dependencies'
-                sh "make install"
+                bat "make install"
             }
         }
         stage('Testing') {
             steps {
                 echo 'Running Tests'
-                sh "make tests"
+                bat "make tests"
             }
         }
         stage('Branch Name Check') {
